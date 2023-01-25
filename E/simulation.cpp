@@ -18,46 +18,65 @@ void Entity::restore_hp(int heal){
 }
 
 void Entity::move(){//переделать чтоб была проверка на выход из поля
-   int dx, dy, sign_x = 0, sign_y = 0;
-   int dist_bord_x, dist_bord_y;//дистанция до границ
-   dist_bord_x = ((center.x-10-Field::instance().get_f_c().x)<(Field::instance().get_f_c().x+Field::instance().get_lenght()+10-center.x))?
-   (center.x-10-Field::instance().get_f_c().x):(Field::instance().get_f_c().x+Field::instance().get_lenght()+10-center.x);
-   dist_bord_y = ((center.y-10-Field::instance().get_f_c().y)<(Field::instance().get_f_c().y+Field::instance().get_height()+10-center.y))?
-   (center.y-10-Field::instance().get_f_c().y):(Field::instance().get_f_c().y+Field::instance().get_height()+10-center.y);
-   if(danger.x == -1 && danger.y == -1 && target.x == -1 && target.y == -1){//случай когда нет поблизости никого
-      while(1){
-         coord temp = center;
-         temp.x+=(rand()%3-1)*speed;
-         temp.y+=(rand()%3-1)*speed;
-         if(Field::instance().in_field(temp)){
-            center = temp;
-            return;
-         }
-      }
+   //~ int dx, dy, sign_x = 0, sign_y = 0;
+   //~ int dist_bord_x, dist_bord_y;//дистанция до границ
+   //~ dist_bord_x = ((center.x-10-Field::instance().get_f_c().x)<(Field::instance().get_f_c().x+Field::instance().get_lenght()+10-center.x))?
+   //~ (center.x-10-Field::instance().get_f_c().x):(Field::instance().get_f_c().x+Field::instance().get_lenght()+10-center.x);
+   //~ dist_bord_y = ((center.y-10-Field::instance().get_f_c().y)<(Field::instance().get_f_c().y+Field::instance().get_height()+10-center.y))?
+   //~ (center.y-10-Field::instance().get_f_c().y):(Field::instance().get_f_c().y+Field::instance().get_height()+10-center.y);
+   //~ if(danger.x == -1 && danger.y == -1 && target.x == -1 && target.y == -1){//случай когда нет поблизости никого
+      //~ while(1){
+         //~ coord temp = center;
+         //~ temp.x+=(rand()%3-1)*speed;
+         //~ temp.y+=(rand()%3-1)*speed;
+         //~ if(Field::instance().in_field(temp)){
+            //~ center = temp;
+            //~ return;
+         //~ }
+      //~ }
+   //~ }
+   //~ if(target.x == -1 && target.y == -1){//случай когда есть опасность
+      //~ dx = center.x - danger.x;
+      //~ dy = center.y - danger.y;
+      //~ if(dist_bord_x>10)
+         //~ sign_x = -speed;
+      //~ else
+         //~ sign_x = speed;
+      //~ if(dist_bord_y>10)
+         //~ sign_y = -speed;
+      //~ else
+         //~ sign_y = speed;
+   //~ }
+   //~ else{//случай когда нет опасности, но есть цель
+      //~ dx = center.x - target.x;
+      //~ dy = center.y - target.y;
+      //~ if(dist_bord_x>10)
+         //~ sign_x = speed;
+      //~ else
+         //~ sign_x = -speed;
+      //~ if(dist_bord_y>10)
+         //~ sign_y = speed;
+      //~ else
+         //~ sign_y = -speed;
+   //~ }
+  int dx, dy, sign_x, sign_y;
+   if(danger.x != -1 && danger.y != -1){
+      dx = fabs(center.x - danger.x);
+      dy = fabs(center.y - danger.y);
+      sign_x = center.x<danger.x?-speed:(center.x==danger.x?0:speed);
+      sign_y = center.y<danger.y?-speed:(center.y==danger.y?0:speed);
    }
-   if(target.x == -1 && target.y == -1){//случай когда есть опасность
-      dx = center.x - danger.x;
-      dy = center.y - danger.y;
-      if(dist_bord_x>10)
-         sign_x = -speed;
-      else
-         sign_x = 1;
-      if(dist_bord_y>10)
-         sign_y = -speed;
-      else
-         sign_y = 1;
+   else if(target.x==-1&&target.y==-1){
+      //возможно нужно сделать псевдорандом
+      center.x+=(rand()%3-1)*speed;
+      center.y+=(rand()%3-1)*speed;
+      return;
    }
-   else{//случай когда нет опасности, но есть цель
-      dx = center.x - target.x;
-      dy = center.y - target.y;
-      if(dist_bord_x>10)
-         sign_x = speed;
-      else
-         sign_x = -1;
-      if(dist_bord_y>10)
-         sign_y = speed;
-      else
-         sign_y = -1;
+   else{
+      dx = fabs(center.x - target.x);
+      dy = fabs(center.y - target.y);
+      sign_x = center.x<target.x?speed:(center.x==danger.x?0:-speed);
+      sign_y = center.y<target.y?speed:(center.y==danger.y?0:-speed);
    }
    int error = dx-dy;
    int error2 = error*2;

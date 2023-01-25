@@ -1,0 +1,165 @@
+# interface.hpp simulation.hpp
+!interface.cpp algorithm cctype cerrno clocale cmath cstdint cstdio cstdlib ctime ctype.h cwchar cwctype errno.h exception graphics.h initializer_list interface.hpp ios iosfwd iostream istream keys_n_colors.h limits limits.h locale.h math.h new ostream signal.h simulation.hpp stddef.h stdexcept stdint.h stdio.h stdlib.h streambuf string string_view system_error time.h type_traits typeinfo utility vector wchar.h wctype.h #<#>
+!interface.hpp cctype cerrno clocale cmath cstdint cstdio cstdlib ctime ctype.h cwchar cwctype errno.h exception graphics.h initializer_list ios iosfwd iostream istream keys_n_colors.h limits limits.h locale.h math.h new ostream signal.h simulation.hpp stddef.h stdexcept stdint.h stdio.h stdlib.h streambuf string string_view system_error time.h type_traits typeinfo utility vector wchar.h wctype.h #<#>
+!main.cpp cctype cerrno clocale cmath cstdint cstdio cstdlib ctime ctype.h cwchar cwctype errno.h exception graphics.h initializer_list interface.hpp ios iosfwd iostream istream keys_n_colors.h limits limits.h locale.h math.h new ostream signal.h simulation.hpp stddef.h stdexcept stdint.h stdio.h stdlib.h streambuf string string_view system_error time.h type_traits typeinfo utility vector wchar.h wctype.h #<#>
+!simulation.cpp cctype cerrno clocale cmath cstdint cstdio cstdlib ctime ctype.h cwchar cwctype errno.h exception graphics.h initializer_list interface.hpp ios iosfwd iostream istream keys_n_colors.h limits limits.h locale.h math.h new ostream signal.h simulation.hpp stddef.h stdexcept stdint.h stdio.h stdlib.h streambuf string string_view system_error time.h type_traits typeinfo utility vector wchar.h wctype.h #<#>
+Button _type_ #<interface.hpp>
+Entity _type_ #<simulation.hpp>
+Entity(coord, int, int, int) #<simulation.hpp>
+FOOD_CAP #<interface.hpp>
+FOOD_COST #<interface.hpp>
+Field _type_ #<interface.hpp>
+Food _type_ #<simulation.hpp>
+Food(coord, int, int) #<simulation.hpp>
+HERB_COST #<interface.hpp>
+HERB_HP #<interface.hpp>
+HERB_NEED #<interface.hpp>
+HERB_SPEED #<interface.hpp>
+HERB_VIS #<simulation.hpp>
+Herbivore _type_ #<simulation.hpp>
+Herbivore(coord, int, int, int, int) #<simulation.hpp>
+Object _type_ #<simulation.hpp>
+Object() -> virtual~ #<simulation.hpp>
+Object(coord) #<simulation.hpp>
+PRED_HP #<interface.hpp>
+PRED_NEED #<interface.hpp>
+PRED_SPEED #<interface.hpp>
+PRED_VIS #<simulation.hpp>
+Predator _type_ #<simulation.hpp>
+Predator(coord, int, int, int) #<simulation.hpp>
+Rect_button _type_ #<interface.hpp>
+add(int i) -> void #<main.cpp>
+controls : Button*[] #<main.cpp>
+coord _type_ #<simulation.hpp>
+fun_ptr _type_ #<interface.hpp>
+init_buttons() -> void #<main.cpp>
+main() -> int #<main.cpp>
+remove_last(int i) -> void #<main.cpp>
+	Button:%first : coord #<interface.hpp>
+	Button:%fill_col : int #<interface.hpp>
+	Button:%text_col : int #<interface.hpp>
+	Button:%type : int #<interface.hpp>
+	Button:%func : fun_ptr #<interface.hpp>
+	Button::Button :  #<interface.hpp>
+	Button::get_first() -> coord #<interface.hpp>
+	Button::get_func() -> fun_ptr #<interface.hpp>
+	Button::set_func(fun_ptr) -> void #<interface.hpp>
+	Button::set_type(int) -> void #<interface.hpp>
+	Button::in(int, int) -> virtual bool #<interface.hpp>
+	Button::draw() -> virtual void #<interface.hpp>
+	Button::press() -> virtual void #<interface.hpp>
+	Entity:%hp : int #<simulation.hpp>
+	Entity:%eated_food : int #<simulation.hpp>
+	Entity:%need_food : int #<simulation.hpp>
+	Entity:%speed : int #<simulation.hpp>
+	Entity:%hp_cost : int #<simulation.hpp>
+	Entity:%center : coord #<simulation.hpp>
+	Entity:%target : coord #<simulation.hpp>
+	Entity:%danger : coord #<simulation.hpp>
+	Entity::restore_hp(int) -> void #<simulation.hpp>
+	Entity::move() -> void #<simulation.hpp>
+	Entity::draw() -> virtual void #<simulation.hpp>
+	Entity::step() -> virtual void #<simulation.hpp>
+	Entity::get_center() -> coord #<simulation.hpp>
+	Entity::get_cost() -> int #<simulation.hpp>
+	Entity::set_cost(int) -> void #<simulation.hpp>
+	Field:%first : coord #<interface.hpp>
+	Field:%lenght : int #<interface.hpp>
+	Field:%height : int #<interface.hpp>
+	Field:%fill_col : int #<interface.hpp>
+	Field:%objects : std::vector #<interface.hpp>
+	Field:%Field :  #<interface.hpp>
+	Field::nearest_obj : Object* #<interface.hpp>
+	Field::replication : void #<interface.hpp>
+	Field::add(int) -> void #<interface.hpp>
+	Field::collision : bool #<interface.hpp>
+	Field::in_field : bool #<interface.hpp>
+	Field::get_f_c() -> coord #<interface.hpp>
+	Field::get_lenght() -> int #<interface.hpp>
+	Field::get_height() -> int #<interface.hpp>
+	Field::get_obj_num(const std::type_info&) -> int #<interface.hpp>
+	Field::remove_obj : void #<interface.hpp>
+	Field::remove_last() -> void #<interface.hpp>
+	Field::redraw_field(int) -> void #<interface.hpp>
+	Field$:instance() -> Field& #<interface.hpp>
+	Food:%cap : int #<simulation.hpp>
+	Food:%cap_max : int #<simulation.hpp>
+	Food:%hp_cost : int #<simulation.hpp>
+	Food:%center : coord #<simulation.hpp>
+	Food:%target : coord #<simulation.hpp>
+	Food:%danger : coord #<simulation.hpp>
+	Food::is_cap() -> bool #<simulation.hpp>
+	Food::draw() -> void #<simulation.hpp>
+	Food::step() -> void #<simulation.hpp>
+	Food::get_center() -> coord #<simulation.hpp>
+	Food::get_cost() -> int #<simulation.hpp>
+	Food::set_cost(int) -> void #<simulation.hpp>
+	Food::draw() -> virtual void #<simulation.hpp>
+	Food::step() -> virtual void #<simulation.hpp>
+	Herbivore:%hp : int #<simulation.hpp>
+	Herbivore:%eated_food : int #<simulation.hpp>
+	Herbivore:%need_food : int #<simulation.hpp>
+	Herbivore:%speed : int #<simulation.hpp>
+	Herbivore:%hp_cost : int #<simulation.hpp>
+	Herbivore:%center : coord #<simulation.hpp>
+	Herbivore:%target : coord #<simulation.hpp>
+	Herbivore:%danger : coord #<simulation.hpp>
+	Herbivore::draw() -> void #<simulation.hpp>
+	Herbivore::step() -> void #<simulation.hpp>
+	Herbivore::restore_hp(int) -> void #<simulation.hpp>
+	Herbivore::move() -> void #<simulation.hpp>
+	Herbivore::draw() -> virtual void #<simulation.hpp>
+	Herbivore::step() -> virtual void #<simulation.hpp>
+	Herbivore::get_center() -> coord #<simulation.hpp>
+	Herbivore::get_cost() -> int #<simulation.hpp>
+	Herbivore::set_cost(int) -> void #<simulation.hpp>
+	Object:%hp_cost : int #<simulation.hpp>
+	Object:%center : coord #<simulation.hpp>
+	Object:%target : coord #<simulation.hpp>
+	Object:%danger : coord #<simulation.hpp>
+	Object::get_center() -> coord #<simulation.hpp>
+	Object::get_cost() -> int #<simulation.hpp>
+	Object::set_cost(int) -> void #<simulation.hpp>
+	Object::draw() -> virtual void #<simulation.hpp>
+	Object::step() -> virtual void #<simulation.hpp>
+	Predator:%hp : int #<simulation.hpp>
+	Predator:%eated_food : int #<simulation.hpp>
+	Predator:%need_food : int #<simulation.hpp>
+	Predator:%speed : int #<simulation.hpp>
+	Predator:%hp_cost : int #<simulation.hpp>
+	Predator:%center : coord #<simulation.hpp>
+	Predator:%target : coord #<simulation.hpp>
+	Predator:%danger : coord #<simulation.hpp>
+	Predator::draw() -> void #<simulation.hpp>
+	Predator::step() -> void #<simulation.hpp>
+	Predator::restore_hp(int) -> void #<simulation.hpp>
+	Predator::move() -> void #<simulation.hpp>
+	Predator::draw() -> virtual void #<simulation.hpp>
+	Predator::step() -> virtual void #<simulation.hpp>
+	Predator::get_center() -> coord #<simulation.hpp>
+	Predator::get_cost() -> int #<simulation.hpp>
+	Predator::set_cost(int) -> void #<simulation.hpp>
+	Rect_button:%height : int #<interface.hpp>
+	Rect_button:%lenght : int #<interface.hpp>
+	Rect_button:%offset_x : int #<interface.hpp>
+	Rect_button:%offset_y : int #<interface.hpp>
+	Rect_button:%button_text : std::string #<interface.hpp>
+	Rect_button:%first : coord #<interface.hpp>
+	Rect_button:%fill_col : int #<interface.hpp>
+	Rect_button:%text_col : int #<interface.hpp>
+	Rect_button:%type : int #<interface.hpp>
+	Rect_button:%func : fun_ptr #<interface.hpp>
+	Rect_button::Rect_button :  #<interface.hpp>
+	Rect_button::in(int, int) -> bool #<interface.hpp>
+	Rect_button::draw() -> void #<interface.hpp>
+	Rect_button::press() -> void #<interface.hpp>
+	Rect_button::Button :  #<interface.hpp>
+	Rect_button::get_first() -> coord #<interface.hpp>
+	Rect_button::get_func() -> fun_ptr #<interface.hpp>
+	Rect_button::set_func(fun_ptr) -> void #<interface.hpp>
+	Rect_button::set_type(int) -> void #<interface.hpp>
+	Rect_button::in(int, int) -> virtual bool #<interface.hpp>
+	Rect_button::draw() -> virtual void #<interface.hpp>
+	Rect_button::press() -> virtual void #<interface.hpp>
+	coord::x : int #<simulation.hpp>
+	coord::reset : inty=-1;void #<simulation.hpp>

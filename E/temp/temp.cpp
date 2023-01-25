@@ -27,6 +27,44 @@ void Entity::move(){//переделать чтоб была проверка на выход из поля
    if(danger.x == -1 && danger.y == -1 && target.x == -1 && target.y == -1){//случай когда нет поблизости никого
       while(1){
          coord temp = center;
-         temp.x+=(rand()%2-1)*speed;
-         temp.y+=(rand()%2-1)*speed;
-         cout<<"x: "<<temp.x-_abracadabra_cast(center);
+         temp.x+=(rand()%3-1)*speed;
+         temp.y+=(rand()%3-1)*speed;
+         if(Field::instance().in_field(temp)){
+            center = temp;
+            return;
+         }
+      }
+   }
+   if(target.x == -1 && target.y == -1){//случай когда есть опасность
+      dx = center.x - danger.x;
+      dy = center.y - danger.y;
+      if(dist_bord_x>10)
+         sign_x = -speed;
+      else
+         sign_x = speed;
+      if(dist_bord_y>10)
+         sign_y = -speed;
+      else
+         sign_y = speed;
+   }
+   else{//случай когда нет опасности, но есть цель
+      dx = center.x - target.x;
+      dy = center.y - target.y;
+      if(dist_bord_x>10)
+         sign_x = speed;
+      else
+         sign_x = -speed;
+      if(dist_bord_y>10)
+         sign_y = speed;
+      else
+         sign_y = -speed;
+   }
+   if(dx==0){
+      if(dy<0)
+         center.y-=sign_y;
+      else
+         center.y+=sign_y;
+   }
+   else (dx<0){
+      if(dy==0)
+         _abracadabra_cast(center);

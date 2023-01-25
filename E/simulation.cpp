@@ -18,42 +18,56 @@ void Entity::restore_hp(int heal){
 }
 
 void Entity::move(){//переделать чтоб была проверка на выход из поля
-   int dx, dy, sign_x, sign_y;
-   coord temp;
-   temp.x++;temp.y++;
-   if(danger.x != -1 && danger.y != -1){
-      dx = fabs(center.x - danger.x);
-      dy = fabs(center.y - danger.y);
-      sign_x = center.x<danger.x?-speed:speed;
-      sign_y = center.y<danger.y?-speed:speed;
-   }      
-   else if(target.x==-1&&target.y==-1){
+   int dx, dy, sign_x = 0, sign_y = 0;
+   int dist_bord_x, dist_bord_y;//дистанция до границ
+   dist_bord_x = ((center.x-10-Field::instance().get_f_c().x)<(Field::instance().get_f_c().x+Field::instance().get_lenght()+10-center.x))?
+   (center.x-10-Field::instance().get_f_c().x):(Field::instance().get_f_c().x+Field::instance().get_lenght()+10-center.x);
+   dist_bord_y = ((center.y-10-Field::instance().get_f_c().y)<(Field::instance().get_f_c().y+Field::instance().get_height()+10-center.y))?
+   (center.y-10-Field::instance().get_f_c().y):(Field::instance().get_f_c().y+Field::instance().get_height()+10-center.y);
+   if(danger.x == -1 && danger.y == -1 && target.x == -1 && target.y == -1){//случай когда нет поблизости никого
       while(1){
-         temp.x+=(rand()%2-1)*speed;
-         temp.y+=(rand()%2-1)*speed;
+         coord temp = center;
+         temp.x+=(rand()%3-1)*speed;
+         temp.y+=(rand()%3-1)*speed;
          if(Field::instance().in_field(temp)){
-            center.x+=temp.x;
-            center.y+=temp.y;
+            center = temp;
             return;
          }
       }
    }
-   else{
-      dx = fabs(center.x - target.x);
-      dy = fabs(center.y - target.y);
-      sign_x = center.x<target.x?speed:-speed;
-      sign_y = center.y<target.y?speed:-speed;
+   if(target.x == -1 && target.y == -1){//случай когда есть опасность
+      dx = center.x - danger.x;
+      dy = center.y - danger.y;
+      if(dist_bord_x>10)
+         sign_x = -speed;
+      else
+         sign_x = 1;
+      if(dist_bord_y>10)
+         sign_y = -speed;
+      else
+         sign_y = 1;
    }
-   int error = (dx-dy)*2;
-   if(error>-dy){
-      temp.x+=sign_x;
-      if(temp.x != Field::instance().get_f_c().x && temp.x != Field::instance().get_f_c().x + Field::instance().get_lenght())
-         center.x+=temp.x;
+   else{//случай когда нет опасности, но есть цель
+      dx = center.x - target.x;
+      dy = center.y - target.y;
+      if(dist_bord_x>10)
+         sign_x = speed;
+      else
+         sign_x = -1;
+      if(dist_bord_y>10)
+         sign_y = speed;
+      else
+         sign_y = -1;
    }
-   if(error<dx){
-      temp.y+=sign_y;
-      if(temp.y != Field::instance().get_f_c().y && temp.y != Field::instance().get_f_c().y + Field::instance().get_height())
-         center.y+=temp.y;
+   int error = dx-dy;
+   int error2 = error*2;
+   if(error2>-dy){
+      error-=dy;
+      center.x+=sign_x;
+   }
+   if(error2<dx){
+      error+=dx;
+      center.y+=sign_y;
    }
 }
 
@@ -67,7 +81,6 @@ void Predator::draw(){
 
 void Predator::step(){
    if(Field::instance().nearest_obj(center, typeid(Herbivore), PRED_VIS) != nullptr){
-      cout<<"I see herb!"<<endl;
       target = Field::instance().nearest_obj(center, typeid(Herbivore), PRED_VIS)->get_center();
       if(target.x != -1 && target.y != -1 && Field::instance().collision(center, target)){
          eated_food++;
